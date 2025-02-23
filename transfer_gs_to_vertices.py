@@ -29,7 +29,8 @@ class VertexDecoder(nn.Module):
         self.mlp = nn.Sequential(
             nn.Linear(in_dim, hidden_dim),
             nn.ReLU(inplace=True),
-            nn.Linear(hidden_dim, 3)  # (x, y, z)
+            nn.Linear(hidden_dim, 3),  # (x, y, z)
+            nn.Tanh()
         )
 
     def forward(self, slat: SparseTensor):

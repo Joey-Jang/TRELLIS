@@ -1,3 +1,4 @@
+from PIL.Image import open as openPILImage
 import torch
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
@@ -7,14 +8,14 @@ from trellis.representations.gaussian.general_utils import PILtoTorch
 
 
 class VertexDataset(Dataset):
-    def __init__(self, vertex_dir, pointcloud_dir):
+    def __init__(self, img_dir, vertex_dir):
         """
         Args:
+            img_dir (str): 이미지 데이터가 있는 디렉토리 경로
             vertex_dir (str): 정점 데이터가 있는 디렉토리 경로
-            pointcloud_dir (str): 포인트 클라우드 데이터가 있는 디렉토리 경로
         """
+        self.img_dir = img_dir
         self.vertex_dir = vertex_dir
-        self.pointcloud_dir = pointcloud_dir
 
         # 파일 리스트 가져오기
         self.file_list = [f for f in os.listdir(vertex_dir) if f.endswith('.npy')]
@@ -28,7 +29,7 @@ class VertexDataset(Dataset):
 
         # 이미지 데이터 로드
         img_path = os.path.join(self.vertex_dir, f"{base_name}.png")
-        image = PIL.Image.open(img_path).convert('RGB')
+        image = openPILImage(img_path).convert('RGB')
         image_torch = PILtoTorch(image, 518)
 
         # 정점 데이터 로드
