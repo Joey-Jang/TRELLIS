@@ -81,6 +81,7 @@ def create_dataloader(img_dir, vertex_dir, batch_size=32, num_workers=4):
         num_workers (int): 데이터 로딩에 사용할 워커 수
     """
     dataset = VertexDataset(img_dir, vertex_dir)
+    print(f"Dataset size: {len(dataset)}")
 
     dataloader = DataLoader(
         dataset,
