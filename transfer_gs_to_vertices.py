@@ -1,5 +1,7 @@
 import os
 
+from trellis.representations.gaussian.general_utils import PILtoTorch
+
 os.environ['ATTN_BACKEND'] = 'xformers'  # Can be 'flash-attn' or 'xformers', default is 'flash-attn'
 os.environ['SPCONV_ALGO'] = 'native'  # Can be 'native' or 'auto', default is 'auto'.
 # 'auto' is faster but will do benchmarking at the beginning.
@@ -234,9 +236,9 @@ if __name__ == "__main__":
     # 5) 예시 데이터셋 구성
     #    - 실제론 이미지와 3D GT(vertices) 준비
     #    - 여기서는 dummy 예시
-    dummy_imgs = [Image.new('RGB', (256, 256), color=(random.randint(0, 255),
+    dummy_imgs = [PILtoTorch(Image.new('RGB', (256, 256), color=(random.randint(0, 255),
                                                       random.randint(0, 255),
-                                                      random.randint(0, 255))) for _ in range(10)]
+                                                      random.randint(0, 255)))) for _ in range(10)]
     dummy_verts = [torch.randn(100, 3) for _ in range(10)]  # 각 샘플마다 100개 정점
 
     dataset = My3DDataset(dummy_imgs, dummy_verts)
