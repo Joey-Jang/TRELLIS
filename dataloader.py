@@ -12,11 +12,9 @@ class VertexDataset(Dataset):
         Args:
             vertex_dir (str): 정점 데이터가 있는 디렉토리 경로
             pointcloud_dir (str): 포인트 클라우드 데이터가 있는 디렉토리 경로
-            num_points (int): 포인트 클라우드에서 샘플링할 포인트 수
         """
         self.vertex_dir = vertex_dir
         self.pointcloud_dir = pointcloud_dir
-        self.num_points = num_points
 
         # 파일 리스트 가져오기
         self.file_list = [f for f in os.listdir(vertex_dir) if f.endswith('.npy')]
