@@ -213,6 +213,7 @@ if __name__ == "__main__":
     encoder.eval()
 
     print(encoder)
+    print(encoder.forward)
 
     # 2) 사전학습된 가우시안 디코더 로드
     #    (TRELLIS: 'slat_dec_gs_swin8_B_64l8gs32_fp16')
