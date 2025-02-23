@@ -26,7 +26,7 @@ def download(metadata, output_dir, **kwargs):
     os.makedirs(os.path.join(output_dir, 'raw'), exist_ok=True)
 
     # download annotations
-    annotations = oxl.get_annotations()
+    annotations = oxl.get_annotations()[:10]
     annotations = annotations[annotations['sha256'].isin(metadata['sha256'].values)]
     
     # download and render objects
