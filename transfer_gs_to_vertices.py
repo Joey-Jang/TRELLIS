@@ -234,21 +234,17 @@ if __name__ == "__main__":
     # )
 
     # 5) 예시 데이터셋 구성
-    #    - 실제론 이미지와 3D GT(vertices) 준비
-    #    - 여기서는 dummy 예시
-    dummy_imgs = [PILtoTorch(Image.new('RGB', (256, 256), color=(random.randint(0, 255),
-                                                      random.randint(0, 255),
-                                                      random.randint(0, 255))), 256) for _ in range(10)]
-    dummy_verts = [torch.randn(100, 3) for _ in range(10)]  # 각 샘플마다 100개 정점
-
-    dataset = My3DDataset(dummy_imgs, dummy_verts)
-    loader = DataLoader(dataset, batch_size=2, shuffle=True)
+    train_loader = create_dataloader(
+        img_dir="assets/training_data/image",
+        vertex_dir="assets/training_data/vertex",
+        batch_size=3
+    )
 
     # 6) 학습 루프
     epochs = 2
     for epoch in range(epochs):
         vertex_decoder.train()
-        for images, gt_vertices_batch in loader:
+        for images, gt_vertices_batch in train_loader:
             # images: B개
             # gt_vertices_batch: 길이 B 리스트
             # 1) 이미지 -> SLAT
