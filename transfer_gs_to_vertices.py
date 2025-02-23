@@ -212,9 +212,6 @@ if __name__ == "__main__":
     encoder = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_enc_swin8_B_64l8_fp16')
     encoder.eval()
 
-    print(encoder)
-    print(encoder.forward)
-
     # 2) 사전학습된 가우시안 디코더 로드
     #    (TRELLIS: 'slat_dec_gs_swin8_B_64l8gs32_fp16')
     decoder_gs = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16')
@@ -253,7 +250,14 @@ if __name__ == "__main__":
             # gt_vertices_batch: 길이 B 리스트
             # 1) 이미지 -> SLAT
             #    encoder(...)가 SparseTensor 반환한다고 가정
-            slat = encoder(images)  # type: SparseTensor
+            sparse_input = SparseTensor(
+                feats=torch.randn(1000, 1024).cuda(),  # 예제 특징 데이터 (N=1000, C=1024)
+                coords=torch.cat([
+                    torch.zeros(1000, 1).int(),  # 배치 차원 (N, 1)
+                    torch.randint(0, 64, (1000, 3)).int()  # 좌표 (N, 3)
+                ], dim=1).cuda()
+            )
+            slat = encoder(sparse_input)  # type: SparseTensor
             slat = slat.cuda()
 
             # 2) 디코더 -> 예측 정점
