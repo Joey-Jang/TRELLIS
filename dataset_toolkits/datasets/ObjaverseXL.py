@@ -14,9 +14,9 @@ def add_args(parser: argparse.ArgumentParser):
 
 def get_metadata(source, **kwargs):
     if source == 'sketchfab':
-        metadata = pd.read_csv("hf://datasets/JeffreyXiang/TRELLIS-500K/ObjaverseXL_sketchfab.csv")[:10]
+        metadata = pd.read_csv("hf://datasets/JeffreyXiang/TRELLIS-500K/ObjaverseXL_sketchfab.csv")[:100]
     elif source == 'github':
-        metadata = pd.read_csv("hf://datasets/JeffreyXiang/TRELLIS-500K/ObjaverseXL_github.csv")[:10]
+        metadata = pd.read_csv("hf://datasets/JeffreyXiang/TRELLIS-500K/ObjaverseXL_github.csv")[:100]
     else:
         raise ValueError(f"Invalid source: {source}")
     return metadata
@@ -26,7 +26,7 @@ def download(metadata, output_dir, **kwargs):
     os.makedirs(os.path.join(output_dir, 'raw'), exist_ok=True)
 
     # download annotations
-    annotations = oxl.get_annotations()[:10]
+    annotations = oxl.get_annotations()[:100]
     annotations = annotations[annotations['sha256'].isin(metadata['sha256'].values)]
     
     # download and render objects
