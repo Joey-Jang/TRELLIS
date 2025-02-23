@@ -30,7 +30,7 @@ class VertexDataset(Dataset):
         # 이미지 데이터 로드
         img_path = os.path.join(self.img_dir, f"{base_name}.png")
         image = openPILImage(img_path).convert('RGB')
-        image_torch = PILtoTorch(image, 518)
+        image_torch = PILtoTorch(image, (518, 518))
 
         # 정점 데이터 로드
         vertex_path = os.path.join(self.vertex_dir, f"{base_name}.npy")
