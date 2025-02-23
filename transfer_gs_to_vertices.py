@@ -211,10 +211,12 @@ if __name__ == "__main__":
     #    (TRELLIS: 'slat_enc_swin8_B_64l8_fp16')
     encoder = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_enc_swin8_B_64l8_fp16')
     encoder.eval()
+    encoder.to(torch.device('cuda'))
 
     # 2) 사전학습된 가우시안 디코더 로드
     #    (TRELLIS: 'slat_dec_gs_swin8_B_64l8gs32_fp16')
     decoder_gs = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16')
+    decoder_gs.to(torch.device('cuda'))
 
     # 3) 전이학습용 Vertex 디코더 생성
     #    - 예: 12개 중 앞 8개 블록은 동결, 나머지 학습
