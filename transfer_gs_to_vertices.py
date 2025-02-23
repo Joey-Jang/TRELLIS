@@ -212,6 +212,8 @@ if __name__ == "__main__":
     encoder = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_enc_swin8_B_64l8_fp16')
     encoder.eval()
 
+    print(encoder)
+
     # 2) 사전학습된 가우시안 디코더 로드
     #    (TRELLIS: 'slat_dec_gs_swin8_B_64l8gs32_fp16')
     decoder_gs = models.from_pretrained('JeffreyXiang/TRELLIS-image-large/ckpts/slat_dec_gs_swin8_B_64l8gs32_fp16')
