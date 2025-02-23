@@ -28,7 +28,7 @@ class VertexDataset(Dataset):
         base_name = os.path.splitext(file_name)[0]
 
         # 이미지 데이터 로드
-        img_path = os.path.join(self.vertex_dir, f"{base_name}.png")
+        img_path = os.path.join(self.img_dir, f"{base_name}.png")
         image = openPILImage(img_path).convert('RGB')
         image_torch = PILtoTorch(image, 518)
 
