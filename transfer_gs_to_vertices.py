@@ -236,7 +236,7 @@ if __name__ == "__main__":
     # 5) 예시 데이터셋 구성
     train_loader = create_dataloader(
         img_dir="assets/training_data/image",
-        vertex_dir="assets/training_data/vertex",
+        vertex_dir="assets/training_data/vertices",
         batch_size=3
     )
 
