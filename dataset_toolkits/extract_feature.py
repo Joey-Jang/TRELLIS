@@ -21,7 +21,7 @@ torch.set_grad_enabled(False)
 
 
 def get_data(frames, sha256):
-    with ThreadPoolExecutor(max_workers=16) as executor:
+    with ThreadPoolExecutor(max_workers=1) as executor:
         def worker(view):
             image_path = os.path.join(opt.output_dir, 'renders', sha256, view['file_path'])
             try:
